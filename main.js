@@ -111,4 +111,4 @@ client.on('message', message =>{
 
 
 
-client.login('NzU4MTg0NzcyODY5ODE2MzU4.X2rQmA.LvWgbvHyD4BxUFAvrDe_wtz2REo');
+client.login();
