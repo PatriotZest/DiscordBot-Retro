@@ -101,7 +101,7 @@ client.on('message', message =>{
           message.channel.send("itsmenoel the Pro Player :) P.S. Sorry for testing on him")
    }
    if(command === 'among'){
-          message.reply(`is looking for a among us game! ${766295832948899840} `)
+          message.reply(`is looking for a among us game! <@&${766295832948899840}> `)
    }
    
 });
