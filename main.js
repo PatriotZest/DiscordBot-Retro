@@ -54,7 +54,10 @@ client.on('message', message =>{
     const command = args.shift().toLowerCase();
  
     if(command === 'ping'){
-       message.channel.send('pong!')
+       message.channel.send("Finding bots ping...").then(msg =>{
+              const ping  = msg.createdTimestamp - message.createdTimestamp;
+              msg.edit(`Retrodanker's ping is ${ping}'`);
+       })
     }
      if (command === "ban"){
         if(message.member.hasPermission('BAN_MEMBERS')){
