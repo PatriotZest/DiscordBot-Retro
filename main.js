@@ -106,6 +106,9 @@ client.on('message', message =>{
    if(command === "roast"){
           client.commands.get('joke').execute(message, args);
    }
+   if(command === "say"){
+          client.commands.get('say').execute(message, args);
+   }
    
 });
  
