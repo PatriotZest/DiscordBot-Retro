@@ -103,6 +103,9 @@ client.on('message', message =>{
    if(command === 'among'){
           message.reply(`is looking for a among us game! <@&${766295832948899840}> `)
    }
+   if(command === "roast"){
+          client.commands.get('joke').execute(message, args);
+   }
    
 });
  
