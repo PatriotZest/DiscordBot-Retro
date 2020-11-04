@@ -56,7 +56,7 @@ client.on('message', message =>{
     if(command === 'ping'){
        message.channel.send("Finding bots ping...").then(msg =>{
               const ping  = msg.createdTimestamp - message.createdTimestamp;
-              msg.edit(`Retrodanker's ping is ${ping}'`);
+              msg.edit(`Retrodanker's ping is ${ping}`);
        })
     }
      if (command === "ban"){
