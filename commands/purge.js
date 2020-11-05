@@ -9,7 +9,7 @@ module.exports = {
            const deleteMessage = `Deleted ${deleteCount} messages`;
 
            if(!deleteCount || deleteCount > 100 || deleteCount < 2) return message.reply("Input a number between 2 and 100")
-           const fetched = await message.channel.fetchMessages({
+           const fetched = await message.channel.fetchMessage({
                   limit: deleteCount
            });
            message.channel.bulkDelete(fetched)
