@@ -14,7 +14,7 @@ module.exports = {
            });
            message.channel.bulkDelete(fetched)
            .catch(error => console.log(`Cannot delete messages because of ${error}`))
-           .then(message.reply(deleteMessage));
+           .then(() => message.channel.send(deleteMessage))
            .catch(err =>{
                  console.log(err)
             });
