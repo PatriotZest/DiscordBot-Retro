@@ -118,7 +118,8 @@ client.on('message', message =>{
           .addField("Thank you for choosing to vote for us")
           .addField("You will unlock sweet perks after voting just DM Retro2op with a screenshot")
           .addField("https://disboard.org/server/701404814223081572")
-   }
+          message.channel.send(embed).catch(err => console.log(err));
+   }       
    
 });
  
