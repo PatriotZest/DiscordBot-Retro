@@ -114,7 +114,7 @@ client.on('message', message =>{
    }
    if(command === "vote"){
           const mesage = "You unlock sweet perks just DM Retro2op with a screenshot"
-          const link = 'https://disboard.org/server/701404814223081572'
+          const link = 'https://top.gg/servers/701404814223081572/vote'
           const embed = new Discord.MessageEmbed()
           .setColor('#0099ff')
           .setTitle ("Vote for us")
