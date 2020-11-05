@@ -4,7 +4,7 @@ module.exports = {
     name: 'purge',
     description: "deletes messages",
     async execute(message, args){
-      if(message.member.hasPermissions("MANAGE_MESSAGES")){
+      if(message.member.hasPermission("MANAGE_MESSAGES")){
            const deleteCount = parseInt(args[0], 10)
            const deleteMessage = `Deleted ${deleteCount} messages`;
 
