@@ -122,7 +122,9 @@ client.on('message', message =>{
           .addField('Benefits: ',`${mesage}`)
           
           message.channel.send(embed).catch(err => console.log(err));
-   }       
+   }
+   if(command === "purge"){
+          client.commands.get('purge').execute(message, args);
    
 });
  

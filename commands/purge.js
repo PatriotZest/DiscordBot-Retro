@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'purge',
-    description: "tells info",
+    description: "deletes messages",
     async execute(message, args){
       if(message.member.hasPermissions("MANAGE_MESSAGES")){
            const deleteCount = parseInt(args[0], 10)
