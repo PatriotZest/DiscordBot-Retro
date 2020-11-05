@@ -125,7 +125,7 @@ client.on('message', message =>{
    }
    if(command === "purge"){
           client.commands.get('purge').execute(message, args);
-   
+   }
 });
  
  
