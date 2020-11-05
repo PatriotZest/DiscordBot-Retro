@@ -113,11 +113,13 @@ client.on('message', message =>{
           client.commands.get('say').execute(message, args);
    }
    if(command === "vote"){
+          const mesage = "You unlock sweet perks just DM Retro2op with a screenshot"
+          const link = 'https://disboard.org/server/701404814223081572'
           const embed = new Discord.MessageEmbed()
           .setColor('#0099ff')
           .setTitle ("Vote for us")
-          .addField( name: 'Vote link', value: 'https://disboard.org/server/701404814223081572')
-          .addField(name: 'Benefits:', value: 'You unlock sweet perks just DM Retro2op with a screenshot')
+          .addField("Vote link:" + link)
+          .addField('Benefits:' + mesage)
           
           message.channel.send(embed).catch(err => console.log(err));
    }       
