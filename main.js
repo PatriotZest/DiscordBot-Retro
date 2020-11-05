@@ -112,6 +112,13 @@ client.on('message', message =>{
    if(command === "say"){
           client.commands.get('say').execute(message, args);
    }
+   if(command === "vote"){
+          const embed = new Discord.MessageEmbed()
+          .setTitle ("Vote for us")
+          .addField("Thank you for choosing to vote for us")
+          .addField("You will unlock sweet perks after voting just DM Retro2op with a screenshot")
+          .addField("https://disboard.org/server/701404814223081572")
+   }
    
 });
  
