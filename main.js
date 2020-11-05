@@ -114,10 +114,13 @@ client.on('message', message =>{
    }
    if(command === "vote"){
           const embed = new Discord.MessageEmbed()
+          .setColor('#0099ff')
           .setTitle ("Vote for us")
-          .addField("Thank you for choosing to vote for us")
-          .addField("You will unlock sweet perks after voting just DM Retro2op with a screenshot")
-          .addField("https://disboard.org/server/701404814223081572")
+          .addField(
+		{ name: 'Vote link', value: 'https://disboard.org/server/701404814223081572'},
+        { name: 'Benefits:', value: 'You unlock sweet perks just DM Retro2op with a screenshot'}
+        )
+          
           message.channel.send(embed).catch(err => console.log(err));
    }       
    
