@@ -118,8 +118,8 @@ client.on('message', message =>{
           const embed = new Discord.MessageEmbed()
           .setColor('#0099ff')
           .setTitle ("Vote for us")
-          .addField("Vote link:" + link)
-          .addField('Benefits:' + mesage)
+          .addField("Vote link: ",`${link}`)
+          .addField('Benefits: ',`${mesage}`)
           
           message.channel.send(embed).catch(err => console.log(err));
    }       
