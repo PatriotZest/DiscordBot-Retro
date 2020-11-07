@@ -127,6 +127,9 @@ client.on('message', message =>{
           message.channel.send("Oh so you want to become a betatester? , kids these days smh well then take this role")
           message.member.roles.add('774630635658018817')
    }
+   if(command === "meme"){
+          client.commands.get('meme').execute(message, args);
+   }
 });
  
  
