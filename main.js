@@ -100,9 +100,6 @@ client.on('message', message =>{
    if(command === "slowmode"){
          client.commands.get('slowmode').execute(message, args);
    }
-   if(command === 'betatester'){
-          message.channel.send("itsmenoel the Pro Player :) P.S. Sorry for testing on him")
-   }
    if(command === 'among'){
           message.reply(`is looking for a among us game! <@&${766295832948899840}> `)
    }
@@ -125,6 +122,10 @@ client.on('message', message =>{
    }
    if(command === "purge"){
           client.commands.get('purge').execute(message, args);
+   }
+   if(command === "beta"){
+          message.channel.send("Oh so you want to become a betatester? , kids these days smh well then take this role")
+          message.member.roles.add('774630635658018817')
    }
 });
  
