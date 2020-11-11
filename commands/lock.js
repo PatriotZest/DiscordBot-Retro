@@ -9,7 +9,7 @@ module.exports = {
 
      if(!args[0]) return message.channel.send("You did not specify a channel")
      if(!message.mentions.channels.first()) return message.channel.send("You did not specify a valid channel")
-     const role = message.guild.roles.cache.get('755778598794821712')
+     const role = message.guild.roles.cache.get('758545771670143016')
      if(!role) return message.channel.send("Could not find role")
      await message.mentions.channels.forEach(async channel =>{
         if(channel.name.startsWith('L')) return message.channel.send(`<#${channel.id}> is already locked!`)
