@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 module.exports = {
 
     name: 'lock',
@@ -12,8 +12,8 @@ module.exports = {
      const role = message.guild.roles.cache.get('758545771670143016')
      if(!role) return message.channel.send("Could not find role")
      await message.mentions.channels.forEach(async channel =>{
-        if(channel.name.startsWith('L')) return message.channel.send(`<#${channel.id}> is already locked!`)
-        await channel.setName(`L${channel.name}`);
+        if(channel.name.startsWith('🔒')) return message.channel.send(`<#${channel.id}> is already locked!`)
+        await channel.setName(`🔒${channel.name}`);
         try{
           await channel.overwritePermissions(role,[
           {
