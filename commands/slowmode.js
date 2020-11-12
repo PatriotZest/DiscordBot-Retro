@@ -3,7 +3,7 @@ module.exports = {
 
     name: 'slowmode',
     description: "slows the chat",
-     async execute(message, args){
+     async run(client,message, args){
      if(!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send('you dont have perms go back to middle school bro')
      if(!args[0]) return message.channel.send('you did not mention any channel smh')
      if(args[0] ===  'none'){

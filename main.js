@@ -1,140 +1,84 @@
 const Discord = require('discord.js');
+
 const client = new Discord.Client();
- 
-const prefix = '-';
- 
-const fs = require('fs');
- 
-client.commands = new Discord.Collection();
- 
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for(const file of commandFiles){
-    const command = require(`./commands/${file}`);
- 
+
+const { token, default_prefix } = require('./config.json');
+
+const { readdirSync } = require('fs');
+
+const { join } = require('path');
+
+const config = require('./config.json');
+client.config = config;
+
+const db = require('quick.db');
+
+client.commands= new Discord.Collection();
+//You can change the prefix if you like. It doesn't have to be ! or ;
+const commandFiles = readdirSync(join(__dirname, "commands")).filter(file => file.endsWith(".js"));
+
+for (const file of commandFiles) {
+    const command = require(join(__dirname, "commands", `${file}`));
     client.commands.set(command.name, command);
 }
-client.once('ready', () => {
-    console.log('yes its online');
+
+
+client.on("error", console.error);
+
+client.on('ready', () => {
+    console.log('I am ready');
+    client.user.setActivity(`A good bot by me the Great Patriot`)
 });
 
-client.on('message', async message=>{
-    let blacklisted = ['shit','sh*t'];
-    let foundInText = false;
-    for(i in blacklisted){
-        if(message.content.toLowerCase().includes(blacklisted[i].toLowerCase())) foundInText = true;
-    }
-    if(foundInText){
-        message.delete();
-        const hello = message.mentions.users.first();
-        message.channel.send("Sorry buddy that's a blacklisted word.")
-    }
-});
 
-client.on('ready',() => {
-    try{
-        let serverIn = client.guilds.size;
-        console.log(client.user.tag +'has logged in!');
-        function pickStatus(){
-            let status = ["Retros Community","Dank Memer Giveaways!"];
-            let Status = Math.floor(Math.random()*status.length)
-            client.user.setActivity(status[Status]),{
-                type:"WATCHING"
-            }
-        };
-        setInterval(pickStatus, 8000)
-    } catch (err){
-        console.log(err)
-    }
+let stats = {
+    serverID: '<ID>',
+    total: "<ID>",
+    member: "<ID>",
+    bots: "<ID>"
+}
+
+
+
+client.on('guildMemberAdd', member => {
+    if(member.guild.id !== stats.serverID) return;
+    client.channels.cache.get(stats.total).setName(`Total Users: ${member.guild.memberCount}`);
+    client.channels.cache.get(stats.member).setName(`Members: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
+    client.channels.cache.get(stats.bots).setName(`Bots: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
+})
+
+client.on('guildMemberRemove', member => {
+    if(member.guild.id !== stats.serverID) return;
+    client.channels.cache.get(stats.total).setName(`Total Users: ${member.guild.memberCount}`);
+    client.channels.cache.get(stats.member).setName(`Members: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
+    client.channels.cache.get(stats.bots).setName(`Bots: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
+
     
-});
-client.on('message', message =>{
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
- 
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
- 
-    if(command === 'ping'){
-       message.channel.send("Finding bots ping...").then(msg =>{
-              const ping  = msg.createdTimestamp - message.createdTimestamp;
-              msg.edit(`Retrodanker's ping is ${ping}`);
-       })
-    }
-     if (command === "ban"){
-        if(message.member.hasPermission('BAN_MEMBERS')){
-            const userBan = message.mentions.users.first();
+})
 
-            if(userBan){
-                   var member = message.guild.member(userBan);
+client.on("message", async message => {
 
-                    if(member) {
-                           member.ban({
-                    reason: 'you broke rules buddy.'
-                }).then(() => {
-                    message.reply(`${userBan.tag} was banned from the server.`)
-                })
+    if(message.author.bot) return;
+    if(message.channel.type === 'dm') return;
 
-            }          else{
-                         message.reply('that user is not in the server.');
-            }
-        }             else {
-                            message.reply('you need to state a user to ban')
+    let prefix = await db.get(`prefix_${message.guild.id}`);
+    if(prefix === null) prefix = default_prefix;
+
+    if(message.content.startsWith(prefix)) {
+        const args = message.content.slice(prefix.length).trim().split(/ +/g);
+
+        const command = args.shift().toLowerCase();
+
+        if(!client.commands.has(command)) return;
+
+
+        try {
+            client.commands.get(command).run(client, message, args);
+
+        } catch (error){
+            console.error(error);
         }
-                       
-                     
-     
-                      
-                        
-                      
+    }
+})
 
-    
-}else{
-    message.reply("Sorry man but you don't have the power to wield the BAN HAMMER!")
-}    
-   }
-   if(command === "lock"){
-          client.commands.get('lock').execute(message, args);
-   }
-   if(command === "userinfo"){
-          client.commands.get('info').execute(message, args);
-   }
-   if(command === "slowmode"){
-         client.commands.get('slowmode').execute(message, args);
-   }
-   if(command === 'among'){
-          message.reply(`is looking for a among us game! <@&${766295832948899840}> `)
-   }
-   if(command === "roast"){
-          client.commands.get('joke').execute(message, args);
-   }
-   if(command === "say"){
-          client.commands.get('say').execute(message, args);
-   }
-   if(command === "vote"){
-          const mesage = "You unlock sweet perks just DM Retro2op with a screenshot"
-          const link = 'https://top.gg/servers/701404814223081572/vote'
-          const embed = new Discord.MessageEmbed()
-          .setColor('#0099ff')
-          .setTitle ("Vote for us")
-          .addField("Vote link: ",`${link}`)
-          .addField('Benefits: ',`${mesage}`)
-          
-          message.channel.send(embed).catch(err => console.log(err));
-   }
-   if(command === "purge"){
-          client.commands.get('purge').execute(message, args);
-   }
-   if(command === "beta"){
-          message.channel.send("Oh so you want to become a betatester? , kids these days smh well then take this role")
-          message.member.roles.add('774630635658018817')
-   }
-   if(command === "meme"){
-          client.commands.get('meme').execute(message, args);
-   }
-});
- 
- 
-
-
-
-
-client.login(process.env.token);
+client.login(token);

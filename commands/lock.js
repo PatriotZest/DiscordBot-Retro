@@ -3,7 +3,7 @@ module.exports = {
 
     name: 'lock',
     description: "locks things",
-   async execute(message, args){
+   async run(client,message, args){
  
      if(!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send("Sorry you dont have the perms for this")
 

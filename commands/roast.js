@@ -4,7 +4,7 @@ module.exports = {
 
     name: 'joke',
     description: "makes a joke",
-     async execute(message, args){
+     async run(client,message, args){
      if(!args[0]) return message.channel.send("Invalid Command Format , please try again.");
      const mentionedMember = message.mentions.members.first();
      if(!mentionedMember) return message.channel.send("The user does not exist");

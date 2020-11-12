@@ -3,7 +3,7 @@ module.exports = {
 
     name: 'info',
     description: "tells info",
-     execute(message, args){
+      async run (client,message, args){
      let mentionedMember = message.mentions.members.first(); 
      let mentionedUser = message.mentions.users.first(); 
      const userEmbed = new Discord.MessageEmbed()
