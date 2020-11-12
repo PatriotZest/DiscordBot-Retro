@@ -27,7 +27,7 @@ client.on("error", console.error);
 
 client.on('ready', () => {
     console.log('I am ready');
-    client.user.setActivity(`A good bot by me the Great Patriot`)
+    client.user.setActivity(`Retros Community`)
 });
 
 
