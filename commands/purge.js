@@ -1,42 +1,23 @@
-const Discord = require('discord.js');
 module.exports = {
+    name: "purge",
+    description: "Clears messages",
 
-    name: 'purge',
-    description: "deletes messages",
-    async execute(message, args){
-      if(message.member.hasPermission("MANAGE_MESSAGES")){
-           const deleteCount = parseInt(args[0], 10)
-           const deleteMessage = `Deleted ${deleteCount} messages`;
+    async run (client, message, args) {
 
-           if(!deleteCount || deleteCount > 100 || deleteCount < 2) return message.reply("Input a number between 2 and 100")
-           const fetched = await message.channel.fetchMessage({
-                  limit: deleteCount
-           });
-           message.channel.bulkDelete(fetched)
-           .catch(error => console.log(`Cannot delete messages because of ${error}`))
-           .then(() => message.channel.send(deleteMessage))
-           .catch(err =>{
-                 console.log(err)
-            });
-      }else{
-            message.reply("Sorry bro you don't have perms for this command")
-      }
-      
+        const amount = args.join(" ");
+
+        if(!amount) return message.reply('Please provide an amount of messages for me to delete')
+
+        if(amount > 100) return message.reply(`You cannot delete more than 100 messages at once`)
+
+        if(amount < 1) return message.reply(`You need to delete at least one message`)
+
+        await message.channel.messages.fetch({limit: amount}).then(messages => {
+            message.channel.bulkDelete(messages
+    )});
 
 
+    message.channel.send('Success!')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-     }
-     }
+    }
+}
